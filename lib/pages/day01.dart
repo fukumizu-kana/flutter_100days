@@ -16,6 +16,7 @@ class _Day01State extends State<Day01> {
   String omikujiImage = '';
   final List<Widget> leaves = [];
   bool showLeaves = false;
+  bool boxShaken = false;
 
   final animations = <String, Widget Function(Widget)>{
     'ぶるぶる（shake）': (w) => w.animate(key: const ValueKey('shake')).shake(),
@@ -30,6 +31,16 @@ class _Day01State extends State<Day01> {
   };
 
   List<String> get animationKeys => animations.keys.toList();
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      setState(() {
+        boxShaken = true;
+      });
+    });
+  }
 
   void animateDog() {
     int nextIndex;
@@ -112,6 +123,16 @@ class _Day01State extends State<Day01> {
 
     final animatedDog = animations[animationKeys[animationIndex]]!(dogImage);
 
+    final omikujiBox = Image.asset(
+      omikujiImage.isEmpty ? 'images/omikuji.png' : omikujiImage,
+      width: 120,
+      key: const ValueKey('omikuji'),
+    );
+
+    final animatedBox = boxShaken && omikujiImage.isEmpty
+        ? omikujiBox.animate().shake(duration: 1500.ms)
+        : omikujiBox;
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
@@ -130,10 +151,7 @@ class _Day01State extends State<Day01> {
                   top: 80,
                   child: GestureDetector(
                     onTap: animateDog,
-                    child: Image.asset(
-                      omikujiImage.isEmpty ? 'images/omikuji.png' : omikujiImage,
-                      width: 120,
-                    ),
+                    child: animatedBox,
                   ),
                 ),
                 Positioned(
