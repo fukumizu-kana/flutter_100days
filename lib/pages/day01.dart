@@ -12,6 +12,7 @@ class Day01 extends StatefulWidget {
 class _Day01State extends State<Day01> {
   int animationIndex = 0;
   bool isTanuki = false;
+  String omikujiImage = '';
 
   final animations = <String, Widget Function(Widget)>{
     'ぶるぶる（shake）': (w) => w.animate(key: const ValueKey('shake')).shake(),
@@ -33,20 +34,31 @@ class _Day01State extends State<Day01> {
       nextIndex = Random().nextInt(animationKeys.length);
     } while (nextIndex == animationIndex);
 
+    final selectedKey = animationKeys[nextIndex];
+
     setState(() {
       animationIndex = nextIndex;
+      switch (selectedKey) {
+        case 'じわ〜ん（変身）':
+          omikujiImage = 'images/omikuji/daikichi.png';
+          Future.delayed(600.ms, () {
+            setState(() {
+              isTanuki = true;
+            });
+          });
+          break;
+        case 'ぶるぶる（shake）':
+          omikujiImage = 'images/omikuji/kyou.png';
+          isTanuki = false;
+          break;
+        default:
+          final list = ['kichi', 'chuukichi', 'shoukichi', 'suekichi'];
+          final selected = list[Random().nextInt(list.length)];
+          omikujiImage = 'images/omikuji/$selected.png';
+          isTanuki = false;
+          break;
+      }
     });
-
-    final selectedKey = animationKeys[nextIndex];
-    if (selectedKey == 'じわ〜ん（変身）') {
-      Future.delayed(600.ms, () {
-        setState(() {
-          isTanuki = true;
-        });
-      });
-    } else {
-      isTanuki = false;
-    }
   }
 
   @override
@@ -78,10 +90,23 @@ class _Day01State extends State<Day01> {
             child: Stack(
               alignment: Alignment.center,
               children: [
+                // おみくじ画像（犬の上に表示）
+                if (omikujiImage.isNotEmpty)
+                  Positioned(
+                    top: 80,
+                    child: Image.asset(
+                      omikujiImage,
+                      width: 120,
+                    ),
+                  ),
+
+                // 犬本体
                 Positioned(
                   bottom: isTanuki ? 100.0 : 60.0,
                   child: animatedDog.animate(key: const ValueKey('base')).moveY(begin: 100, end: 0),
                 ),
+
+                // 動きのテキスト
                 Positioned(
                   bottom: 15,
                   child: Container(
