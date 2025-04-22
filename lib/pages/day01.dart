@@ -128,9 +128,12 @@ class _Day01State extends State<Day01> {
               children: [
                 Positioned(
                   top: 80,
-                  child: Image.asset(
-                    omikujiImage.isEmpty ? 'images/omikuji.png' : omikujiImage,
-                    width: 120,
+                  child: GestureDetector(
+                    onTap: animateDog,
+                    child: Image.asset(
+                      omikujiImage.isEmpty ? 'images/omikuji.png' : omikujiImage,
+                      width: 120,
+                    ),
                   ),
                 ),
                 Positioned(
