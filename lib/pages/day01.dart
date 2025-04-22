@@ -126,14 +126,13 @@ class _Day01State extends State<Day01> {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                if (omikujiImage.isNotEmpty)
-                  Positioned(
-                    top: 80,
-                    child: Image.asset(
-                      omikujiImage,
-                      width: 120,
-                    ),
+                Positioned(
+                  top: 80,
+                  child: Image.asset(
+                    omikujiImage.isEmpty ? 'images/omikuji.png' : omikujiImage,
+                    width: 120,
                   ),
+                ),
                 Positioned(
                   bottom: isTanuki ? 100.0 : 60.0,
                   child: animatedDog.animate(key: const ValueKey('base')).moveY(begin: 100, end: 0),
