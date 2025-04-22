@@ -24,7 +24,7 @@ class _Day01State extends State<Day01> {
     'ぬるっ（slideX）': (w) => w.animate(key: const ValueKey('slideX')).slideX(begin: -1, end: 0),
     'ひょこっ（slideY）': (w) => w.animate(key: const ValueKey('slideY')).slideY(begin: 1, end: 0),
     'じわ〜ん（変身）': (w) => w.animate(key: const ValueKey('tint')).tint(
-          color: const Color.fromARGB(255, 255, 217, 63).withOpacity(0.3),
+          color: const Color.fromARGB(224, 255, 29, 157).withOpacity(0.3),
           duration: 600.ms,
         ),
   };
@@ -43,18 +43,18 @@ class _Day01State extends State<Day01> {
       animationIndex = nextIndex;
 
       switch (selectedKey) {
-        case 'じわ〜ん（変身）':
+        case 'ぶるぶる（shake）':
           omikujiImage = 'images/omikuji/daikichi.png';
           startLeafAnimation();
+          isTanuki = false;
+          break;
+        case 'じわ〜ん（変身）':
+          omikujiImage = 'images/omikuji/kyou.png';
           Future.delayed(600.ms, () {
             setState(() {
               isTanuki = true;
             });
           });
-          break;
-        case 'ぶるぶる（shake）':
-          omikujiImage = 'images/omikuji/kyou.png';
-          isTanuki = false;
           break;
         default:
           final list = ['kichi', 'chuukichi', 'shoukichi', 'suekichi'];
