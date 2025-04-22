@@ -76,7 +76,7 @@ class _Day01State extends State<Day01> {
 
     for (int i = 0; i < leafCount; i++) {
       final baseX = i * laneWidth;
-      final jitter = Random().nextDouble() * (laneWidth * 0.4) - (laneWidth * 0.2); // ±20%ズレ
+      final jitter = Random().nextDouble() * (laneWidth * 0.4) - (laneWidth * 0.2);
       final startX = (baseX + jitter).clamp(0.0, screenWidth);
 
       leaves.add(
@@ -99,7 +99,6 @@ class _Day01State extends State<Day01> {
 
   @override
   Widget build(BuildContext context) {
-    final animationKey = animationKeys[animationIndex];
     final dogAsset = isTanuki ? 'images/tanuki.png' : 'images/dog.png';
 
     final dogImage = GestureDetector(
@@ -111,7 +110,7 @@ class _Day01State extends State<Day01> {
       ),
     );
 
-    final animatedDog = animations[animationKey]!(dogImage);
+    final animatedDog = animations[animationKeys[animationIndex]]!(dogImage);
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -138,24 +137,6 @@ class _Day01State extends State<Day01> {
                 Positioned(
                   bottom: isTanuki ? 100.0 : 60.0,
                   child: animatedDog.animate(key: const ValueKey('base')).moveY(begin: 100, end: 0),
-                ),
-                Positioned(
-                  bottom: 15,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.4),
-                      borderRadius: BorderRadius.circular(2),
-                    ),
-                    child: Text(
-                      '今の動き：$animationKey',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.brown[700],
-                      ),
-                    ),
-                  ),
                 ),
               ],
             ),
