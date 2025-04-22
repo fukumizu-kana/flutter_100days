@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import '/widgets/falling_leaf.dart';
 
 class Day01 extends StatefulWidget {
   const Day01({super.key});
@@ -13,6 +14,8 @@ class _Day01State extends State<Day01> {
   int animationIndex = 0;
   bool isTanuki = false;
   String omikujiImage = '';
+  final List<Widget> leaves = [];
+  bool showLeaves = false;
 
   final animations = <String, Widget Function(Widget)>{
     'ぶるぶる（shake）': (w) => w.animate(key: const ValueKey('shake')).shake(),
@@ -38,9 +41,11 @@ class _Day01State extends State<Day01> {
 
     setState(() {
       animationIndex = nextIndex;
+
       switch (selectedKey) {
         case 'じわ〜ん（変身）':
           omikujiImage = 'images/omikuji/daikichi.png';
+          startLeafAnimation();
           Future.delayed(600.ms, () {
             setState(() {
               isTanuki = true;
@@ -58,6 +63,37 @@ class _Day01State extends State<Day01> {
           isTanuki = false;
           break;
       }
+    });
+  }
+
+  void startLeafAnimation() {
+    leaves.clear();
+    showLeaves = true;
+
+    final screenWidth = MediaQuery.of(context).size.width;
+    const leafCount = 10;
+    final laneWidth = screenWidth / leafCount;
+
+    for (int i = 0; i < leafCount; i++) {
+      final baseX = i * laneWidth;
+      final jitter = Random().nextDouble() * (laneWidth * 0.4) - (laneWidth * 0.2); // ±20%ズレ
+      final startX = (baseX + jitter).clamp(0.0, screenWidth);
+
+      leaves.add(
+        FallingLeaf(
+          key: UniqueKey(),
+          imagePath: 'images/leaf.png',
+          startX: startX,
+          delay: Duration(milliseconds: Random().nextInt(800)),
+        ),
+      );
+    }
+
+    setState(() {});
+    Future.delayed(const Duration(seconds: 4), () {
+      setState(() {
+        showLeaves = false;
+      });
     });
   }
 
@@ -86,11 +122,11 @@ class _Day01State extends State<Day01> {
             'images/shrine.png',
             fit: BoxFit.cover,
           ),
+          if (showLeaves) ...leaves,
           SafeArea(
             child: Stack(
               alignment: Alignment.center,
               children: [
-                // おみくじ画像（犬の上に表示）
                 if (omikujiImage.isNotEmpty)
                   Positioned(
                     top: 80,
@@ -99,14 +135,10 @@ class _Day01State extends State<Day01> {
                       width: 120,
                     ),
                   ),
-
-                // 犬本体
                 Positioned(
                   bottom: isTanuki ? 100.0 : 60.0,
                   child: animatedDog.animate(key: const ValueKey('base')).moveY(begin: 100, end: 0),
                 ),
-
-                // 動きのテキスト
                 Positioned(
                   bottom: 15,
                   child: Container(
