@@ -19,12 +19,12 @@ class _Day01State extends State<Day01> {
   bool boxShaken = false;
 
   final animations = <String, Widget Function(Widget)>{
-    'ぶるぶる（shake）': (w) => w.animate(key: const ValueKey('shake')).shake(),
-    'くるん（rotate）': (w) => w.animate(key: const ValueKey('rotate')).rotate(duration: 600.ms),
-    'びよーん（scale）': (w) => w.animate(key: const ValueKey('scale')).scale(duration: 500.ms),
-    'ぬるっ（slideX）': (w) => w.animate(key: const ValueKey('slideX')).slideX(begin: -1, end: 0),
-    'ひょこっ（slideY）': (w) => w.animate(key: const ValueKey('slideY')).slideY(begin: 1, end: 0),
-    'じわ〜ん（変身）': (w) => w.animate(key: const ValueKey('tint')).tint(
+    'Shake': (w) => w.animate(key: const ValueKey('shake')).shake(),
+    'Rotate': (w) => w.animate(key: const ValueKey('rotate')).rotate(duration: 600.ms),
+    'Scale': (w) => w.animate(key: const ValueKey('scale')).scale(duration: 500.ms),
+    'Slide X': (w) => w.animate(key: const ValueKey('slideX')).slideX(begin: -1, end: 0),
+    'Slide Y': (w) => w.animate(key: const ValueKey('slideY')).slideY(begin: 1, end: 0),
+    'Tint': (w) => w.animate(key: const ValueKey('tint')).tint(
           color: const Color.fromARGB(224, 255, 29, 157).withOpacity(0.3),
           duration: 600.ms,
         ),
@@ -54,12 +54,12 @@ class _Day01State extends State<Day01> {
       animationIndex = nextIndex;
 
       switch (selectedKey) {
-        case 'ぶるぶる（shake）':
+        case 'Shake':
           omikujiImage = 'images/omikuji/daikichi.png';
           startLeafAnimation();
           isTanuki = false;
           break;
-        case 'じわ〜ん（変身）':
+        case 'Tint':
           omikujiImage = 'images/omikuji/kyou.png';
           Future.delayed(600.ms, () {
             setState(() {
