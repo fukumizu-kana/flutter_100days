@@ -1,16 +1,13 @@
-# flutter_100days
+Flutterのパッケージを毎日1つずつ試していく「#100日チャレンジ」用のリポジトリです。
 
-A new Flutter project.
+## 目的
 
-## Getting Started
+- Flutterのパッケージを継続的にキャッチアップする習慣づくり
+- チーム内での技術共有や選定の材料としても活用
+- 実際に手を動かすことで、理解と引き出しを増やす
 
-This project is a starting point for a Flutter application.
+## 🐾 Day 01 - flutter_animate
 
-A few resources to get you started if this is your first Flutter project:
+flutter_animateを使って、おみくじアニメーションを実装。
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- PR: [#1 Day01: flutter_animate 試してみた](https://github.com/fukumizu-kana/flutter_100days/pull/1)
