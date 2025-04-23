@@ -11,3 +11,10 @@ Flutterのパッケージを毎日1つずつ試していく「#100日チャレ�
 flutter_animateを使って、おみくじアニメーションを実装。
 
 - PR: [#1 Day01: flutter_animate 試してみた](https://github.com/fukumizu-kana/flutter_100days/pull/1)
+
+## 🐶 Day 02 - animated_text_kit
+
+わんこがしゃべる演出を `animated_text_kit` を使って実装。  
+タップごとにセリフが切り替わり、キャラとの“会話っぽさ”が出せた。
+
+- PR: [#2 Day02: animated_text_kit でセリフアニメーション](https://github.com/fukumizu-kana/flutter_100days/pull/2)
