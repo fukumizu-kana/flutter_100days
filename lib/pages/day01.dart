@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import '/widgets/falling_leaf.dart';
 
 class Day01 extends StatefulWidget {
@@ -17,6 +18,15 @@ class _Day01State extends State<Day01> {
   final List<Widget> leaves = [];
   bool showLeaves = false;
   bool boxShaken = false;
+
+  final dogPhrases = [
+    'おみくじ…引いてみない？',
+    'へへっ、今日もいい日になるといいね！',
+    '…たぬきじゃないよ？',
+    'ぼく、しゃべれるんだよ',
+    'にんげんっておもしろいね',
+  ];
+  int phraseIndex = 0;
 
   final animations = <String, Widget Function(Widget)>{
     'Shake': (w) => w.animate(key: const ValueKey('shake')).shake(),
@@ -52,6 +62,7 @@ class _Day01State extends State<Day01> {
 
     setState(() {
       animationIndex = nextIndex;
+      phraseIndex = (phraseIndex + 1) % dogPhrases.length;
 
       switch (selectedKey) {
         case 'Shake':
@@ -129,9 +140,7 @@ class _Day01State extends State<Day01> {
       key: const ValueKey('omikuji'),
     );
 
-    final animatedBox = boxShaken && omikujiImage.isEmpty
-        ? omikujiBox.animate().shake(duration: 1500.ms)
-        : omikujiBox;
+    final animatedBox = boxShaken && omikujiImage.isEmpty ? omikujiBox.animate().shake(duration: 1500.ms) : omikujiBox;
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -147,6 +156,26 @@ class _Day01State extends State<Day01> {
             child: Stack(
               alignment: Alignment.center,
               children: [
+                Positioned(
+                  top: 40,
+                  child: AnimatedTextKit(
+                    key: ValueKey(phraseIndex),
+                    animatedTexts: [
+                      TypewriterAnimatedText(
+                        dogPhrases[phraseIndex],
+                        textStyle: const TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                        speed: const Duration(milliseconds: 50),
+                      ),
+                    ],
+                    totalRepeatCount: 1,
+                    pause: const Duration(milliseconds: 500),
+                    displayFullTextOnTap: true,
+                    stopPauseOnTap: true,
+                  ),
+                ),
                 Positioned(
                   top: 80,
                   child: GestureDetector(
