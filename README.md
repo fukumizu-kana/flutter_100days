@@ -29,6 +29,6 @@ flutter_staggered_grid_view を使ってカードサイズをランダムにし�
 
 ## 🚀 Day 04 - page_transition
 ギャラリー画面から各作品ページへの遷移に、page_transition を使ったズームアニメーションを追加。
-タイルをタップするとふわっと拡大しながら遷移するようになり、より“展示っぽい”動きが出た。
+項目をタップすると拡大しながら遷移するようになった。
 
 - PR: [Day04 page_transitionでズーム遷移を追加](https://github.com/fukumizu-kana/flutter_100days/pull/4)
