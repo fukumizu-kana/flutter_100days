@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:page_transition/page_transition.dart';
 import '/pages/day01.dart';
 
 class GalleryScreen extends StatelessWidget {
@@ -84,8 +85,11 @@ class GalleryScreen extends StatelessWidget {
                           if (item['screen'] != null) {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(
-                                builder: (_) => item['screen'] as Widget,
+                              PageTransition(
+                                type: PageTransitionType.scale,
+                                alignment: Alignment.center,
+                                duration: const Duration(milliseconds: 400),
+                                child: item['screen'] as Widget,
                               ),
                             );
                           }
