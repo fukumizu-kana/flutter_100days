@@ -125,10 +125,13 @@ class _Day01State extends State<Day01> {
 
     final dogImage = GestureDetector(
       onTapDown: (_) => animateDog(),
-      child: Image.asset(
-        dogAsset,
-        width: isTanuki ? 180 : 220,
-        key: ValueKey(dogAsset),
+      child: Hero(
+        tag: 'item-image-0',
+        child: Image.asset(
+          dogAsset,
+          width: isTanuki ? 180 : 220,
+          key: ValueKey(dogAsset),
+        ),
       ),
     );
 
