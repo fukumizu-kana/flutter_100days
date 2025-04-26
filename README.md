@@ -32,3 +32,11 @@ flutter_staggered_grid_view を使ってカードサイズをランダムにし�
 項目をタップすると拡大しながら遷移するようになった。
 
 - PR: [Day04 page_transitionでズーム遷移を追加](https://github.com/fukumizu-kana/flutter_100days/pull/4)
+
+## 🪐 Day 05 - concentric_transition
+画面遷移のパッケージ concentric_transition を使って実装。
+ふわっと拡大する動きを使用して、シンプルなスライドを作った。
+
+- PR: Day05 [concentric_transitionを使ったアニメーションスライド作成](https://github.com/fukumizu-kana/flutter_100days/pull/5)
+
+
