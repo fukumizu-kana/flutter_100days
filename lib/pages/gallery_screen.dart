@@ -6,6 +6,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:page_transition/page_transition.dart';
 import '/pages/day01.dart';
 import '/pages/day05.dart';
+import '/pages/day06.dart';
 
 class GalleryScreen extends StatelessWidget {
   const GalleryScreen({super.key});
@@ -24,9 +25,9 @@ class GalleryScreen extends StatelessWidget {
         'screen': const Day05(),
       },
       {
-        'title': 'coming soon...',
-        'image': 'images/omikuji_app.png',
-        'screen': null,
+        'title': 'animated_flip_counter',
+        'image': 'images/day06_app.png',
+        'screen': const Day06(),
       },
       {
         'title': 'coming soon...',
