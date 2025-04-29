@@ -7,6 +7,7 @@ import 'package:page_transition/page_transition.dart';
 import '/pages/day01.dart';
 import '/pages/day05.dart';
 import '/pages/day06.dart';
+import '/pages/day07.dart';
 
 class GalleryScreen extends StatelessWidget {
   const GalleryScreen({super.key});
@@ -30,9 +31,9 @@ class GalleryScreen extends StatelessWidget {
         'screen': const Day06(),
       },
       {
-        'title': 'coming soon...',
-        'image': 'images/omikuji_app.png',
-        'screen': null,
+        'title': 'smooth_page_indicator',
+        'image': 'images/day07_app.png',
+        'screen': const Day07(),
       },
     ];
 
