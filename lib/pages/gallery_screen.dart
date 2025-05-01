@@ -9,7 +9,7 @@ import '/pages/day05.dart';
 import '/pages/day06.dart';
 import '/pages/day07.dart';
 import '/pages/day08.dart';
-
+import '/pages/day09.dart';
 class GalleryScreen extends StatelessWidget {
   const GalleryScreen({super.key});
 
@@ -37,13 +37,16 @@ class GalleryScreen extends StatelessWidget {
         'screen': const Day07(),
       },
       {
-        'title': 'smooth_page_indicator',
+        'title': 'flutter_spinkit',
         'image': 'images/day08_app.png',
         'screen': const Day08(),
       },
+      {
+        'title': 'flutter_chat_ui\nflutter_chat_types',
+        'image': 'images/day09_app.png',
+        'screen': const Day09(),
+      },
     ];
-
-    final randomHeights = List.generate(items.length, (_) => 200.0 + Random().nextInt(60));
 
     return Scaffold(
       body: Container(
@@ -80,88 +83,94 @@ class GalleryScreen extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: StaggeredGrid.count(
+                child: MasonryGridView.count(
                   crossAxisCount: 2,
                   mainAxisSpacing: 16,
                   crossAxisSpacing: 16,
-                  children: List.generate(items.length, (index) {
+                  itemCount: items.length,
+                  itemBuilder: (context, index) {
                     final item = items[index];
-                    return StaggeredGridTile.extent(
-                      crossAxisCellCount: 1,
-                      mainAxisExtent: randomHeights[index],
-                      child: GestureDetector(
-                        onTap: () {
-                          if (item['screen'] != null) {
-                            Navigator.push(
-                              context,
-                              PageTransition(
-                                type: PageTransitionType.scale,
-                                alignment: Alignment.center,
-                                duration: const Duration(milliseconds: 400),
-                                child: item['screen'] as Widget,
+                    final randomHeight = 200.0 + Random().nextInt(60);
+                    return GestureDetector(
+                      onTap: () {
+                        if (item['screen'] != null) {
+                          Navigator.push(
+                            context,
+                            PageTransition(
+                              type: PageTransitionType.scale,
+                              alignment: Alignment.center,
+                              duration: const Duration(milliseconds: 400),
+                              child: item['screen'] as Widget,
+                            ),
+                          );
+                        }
+                      },
+                      child: Container(
+                        height: randomHeight,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color(0xFFD1B3C4).withOpacity(0.2),
+                              blurRadius: 12,
+                              offset: const Offset(2, 4),
+                            ),
+                          ],
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Stack(
+                            children: [
+                              Hero(
+                                tag: 'item-image-$index',
+                                child: Image.asset(
+                                  item['image'] as String,
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                            );
-                          }
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color: const Color(0xFFD1B3C4).withOpacity(0.2),
-                                blurRadius: 12,
-                                offset: const Offset(2, 4),
+                              Positioned(
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
+                                child: Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Colors.black.withOpacity(0.05),
+                                        Colors.black.withOpacity(0.6),
+                                      ],
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                    ),
+                                  ),
+                                  child: Text(
+                                    item['title'] as String,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'ZenMaruGothic',
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ],
                           ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Stack(
-                              children: [
-                                Hero(
-                                  tag: 'item-image-$index',
-                                  child: Image.asset(
-                                    item['image'] as String,
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Positioned(
-                                  bottom: 0,
-                                  left: 0,
-                                  right: 0,
-                                  child: Container(
-                                    padding: const EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          Colors.black.withOpacity(0.05),
-                                          Colors.black.withOpacity(0.6),
-                                        ],
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                      ),
-                                    ),
-                                    child: Text(
-                                      item['title'] as String,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        fontFamily: 'ZenMaruGothic',
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ).animate().fadeIn(duration: 600.ms, delay: (index * 100).ms).moveY(begin: 30, end: 0, curve: Curves.easeOut),
+                        ),
+                      ).animate().fadeIn(
+                        duration: 600.ms,
+                        delay: (index * 100).ms,
+                      ).moveY(
+                        begin: 30,
+                        end: 0,
+                        curve: Curves.easeOut,
                       ),
                     );
-                  }),
+                  },
                 ),
               ),
             ),
