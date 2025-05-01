@@ -9,7 +9,7 @@ import '/pages/day05.dart';
 import '/pages/day06.dart';
 import '/pages/day07.dart';
 import '/pages/day08.dart';
-
+import '/pages/day09.dart';
 class GalleryScreen extends StatelessWidget {
   const GalleryScreen({super.key});
 
@@ -40,6 +40,11 @@ class GalleryScreen extends StatelessWidget {
         'title': 'smooth_page_indicator',
         'image': 'images/day08_app.png',
         'screen': const Day08(),
+      },
+      {
+        'title': 'flutter_chat_ui\nflutter_chat_types',
+        'image': 'images/day09_app.png',
+        'screen': const Day09(),
       },
     ];
 
