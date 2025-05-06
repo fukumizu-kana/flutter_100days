@@ -11,6 +11,7 @@ import '/pages/day06.dart';
 import '/pages/day07.dart';
 import '/pages/day08.dart';
 import '/pages/day09.dart';
+import '/pages/day11.dart';
 
 class GalleryScreen extends StatelessWidget {
   const GalleryScreen({super.key});
@@ -47,6 +48,11 @@ class GalleryScreen extends StatelessWidget {
         'title': 'flutter_chat_ui\nflutter_chat_types',
         'image': 'images/day09_app.png',
         'screen': const Day09(),
+      },
+      {
+        'title': 'fl_chart',
+        'image': 'images/day11_app.png',
+        'screen': const Day11(),
       },
     ];
 
