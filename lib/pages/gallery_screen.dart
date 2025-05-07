@@ -5,6 +5,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:draggable_home/draggable_home.dart';
+import 'package:clay_containers/clay_containers.dart';
 import '/pages/day01.dart';
 import '/pages/day05.dart';
 import '/pages/day06.dart';
@@ -131,19 +132,13 @@ class GalleryScreen extends StatelessWidget {
                     );
                   }
                 },
-                child: Container(
+                child: ClayContainer(
                   height: randomHeight,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xFFD1B3C4).withOpacity(0.2),
-                        blurRadius: 12,
-                        offset: const Offset(2, 4),
-                      ),
-                    ],
-                  ),
+                  borderRadius: 20,
+                  color: const Color(0xFFF0F0F3),
+                  depth: 40,
+                  spread: 6,
+                  curveType: CurveType.convex,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Stack(
