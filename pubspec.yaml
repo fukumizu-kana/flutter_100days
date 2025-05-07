@@ -47,6 +47,7 @@ dependencies:
   flutter_chat_types: ^3.6.2
   draggable_home: ^1.0.5
   fl_chart: ^0.66.1
+  clay_containers: ^0.3.4
 
 dev_dependencies:
   flutter_test:
