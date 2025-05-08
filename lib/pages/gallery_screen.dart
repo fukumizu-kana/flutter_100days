@@ -6,6 +6,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:draggable_home/draggable_home.dart';
 import 'package:clay_containers/clay_containers.dart';
+import 'package:flutter_bounceable/flutter_bounceable.dart';
 import '/pages/day01.dart';
 import '/pages/day05.dart';
 import '/pages/day06.dart';
@@ -118,7 +119,7 @@ class GalleryScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               final item = items[index];
               final randomHeight = 200.0 + Random().nextInt(60);
-              return GestureDetector(
+              return Bounceable(
                 onTap: () {
                   if (item['screen'] != null) {
                     Navigator.push(
