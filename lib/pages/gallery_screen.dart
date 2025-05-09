@@ -6,6 +6,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:draggable_home/draggable_home.dart';
 import 'package:clay_containers/clay_containers.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import '/pages/day01.dart';
 import '/pages/day05.dart';
 import '/pages/day06.dart';
@@ -13,50 +14,83 @@ import '/pages/day07.dart';
 import '/pages/day08.dart';
 import '/pages/day09.dart';
 import '/pages/day11.dart';
+import '/widgets/category_filter_sheet.dart';
 
-class GalleryScreen extends StatelessWidget {
+class GalleryScreen extends StatefulWidget {
   const GalleryScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final items = [
-      {
-        'title': 'flutter_animate\nanimated_text_kit',
-        'image': 'images/omikuji_app.png',
-        'screen': const Day01(),
-      },
-      {
-        'title': 'concentric_transition',
-        'image': 'images/day05_app.png',
-        'screen': const Day05(),
-      },
-      {
-        'title': 'animated_flip_counter',
-        'image': 'images/day06_app.png',
-        'screen': const Day06(),
-      },
-      {
-        'title': 'smooth_page_indicator',
-        'image': 'images/day07_app.png',
-        'screen': const Day07(),
-      },
-      {
-        'title': 'flutter_spinkit',
-        'image': 'images/day08_app.png',
-        'screen': const Day08(),
-      },
-      {
-        'title': 'flutter_chat_ui\nflutter_chat_types',
-        'image': 'images/day09_app.png',
-        'screen': const Day09(),
-      },
-      {
-        'title': 'fl_chart',
-        'image': 'images/day11_app.png',
-        'screen': const Day11(),
-      },
-    ];
+  State<GalleryScreen> createState() => _GalleryScreenState();
+}
 
+class _GalleryScreenState extends State<GalleryScreen> {
+  final List<Map<String, dynamic>> allItems = [
+    {
+      'title': 'flutter_animate\nanimated_text_kit',
+      'image': 'images/omikuji_app.png',
+      'screen': const Day01(),
+      'category': 'UI',
+    },
+    {
+      'title': 'concentric_transition',
+      'image': 'images/day05_app.png',
+      'screen': const Day05(),
+      'category': 'UX',
+    },
+    {
+      'title': 'animated_flip_counter',
+      'image': 'images/day06_app.png',
+      'screen': const Day06(),
+      'category': 'UI',
+    },
+    {
+      'title': 'smooth_page_indicator',
+      'image': 'images/day07_app.png',
+      'screen': const Day07(),
+      'category': 'UI',
+    },
+    {
+      'title': 'flutter_spinkit',
+      'image': 'images/day08_app.png',
+      'screen': const Day08(),
+      'category': 'UI',
+    },
+    {
+      'title': 'flutter_chat_ui\nflutter_chat_types',
+      'image': 'images/day09_app.png',
+      'screen': const Day09(),
+      'category': 'UX',
+    },
+    {
+      'title': 'fl_chart',
+      'image': 'images/day11_app.png',
+      'screen': const Day11(),
+      'category': 'UI',
+    },
+  ];
+
+  String? selectedCategory;
+
+  List<Map<String, dynamic>> get filteredItems {
+    if (selectedCategory == null) return allItems;
+    return allItems.where((item) => item['category'] == selectedCategory).toList();
+  }
+
+  void _showFilterSheet() async {
+    final selected = await showCupertinoModalBottomSheet<String?>(
+      context: context,
+      topRadius: const Radius.circular(16),
+      builder: (context) => CategoryFilterSheet(current: selectedCategory),
+    );
+    if (selected != null || selectedCategory != null) {
+      setState(() {
+        selectedCategory = selected;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return DraggableHome(
       title: const Text(
         'Flutter パッケージ 100days',
@@ -64,10 +98,13 @@ class GalleryScreen extends StatelessWidget {
           fontSize: 18,
           fontWeight: FontWeight.bold,
           fontFamily: 'ZenMaruGothic',
-          color: Color(0xFFCE7DA5),
+          color: Color(0xFF8B3A62),
         ),
       ),
-      leading: const Icon(Icons.menu, color: Color(0xFFCE7DA5)),
+      leading: IconButton(
+        icon: const Icon(Icons.filter_alt, color: Color(0xFF8B3A62)),
+        onPressed: _showFilterSheet,
+      ),
       appBarColor: const Color(0xFFFFF0F7),
       backgroundColor: const Color(0xFFFFF0F7),
       headerWidget: Container(
@@ -98,7 +135,7 @@ class GalleryScreen extends StatelessWidget {
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'ZenMaruGothic',
-                color: Color(0xFFCE7DA5),
+                color: Color(0xFF8B3A62),
               ),
               speed: const Duration(milliseconds: 60),
             ),
@@ -114,9 +151,9 @@ class GalleryScreen extends StatelessWidget {
             crossAxisCount: 2,
             mainAxisSpacing: 16,
             crossAxisSpacing: 16,
-            itemCount: items.length,
+            itemCount: filteredItems.length,
             itemBuilder: (context, index) {
-              final item = items[index];
+              final item = filteredItems[index];
               return Bounceable(
                 onTap: () {
                   if (item['screen'] != null) {
@@ -132,7 +169,7 @@ class GalleryScreen extends StatelessWidget {
                   }
                 },
                 child: AspectRatio(
-                  aspectRatio: 4 / 5,
+                  aspectRatio: 2 / 3,
                   child: ClayContainer(
                     borderRadius: 20,
                     color: const Color(0xFFF0F0F3),
@@ -161,8 +198,8 @@ class GalleryScreen extends StatelessWidget {
                               decoration: BoxDecoration(
                                 gradient: LinearGradient(
                                   colors: [
-                                    Colors.black.withOpacity(0.05),
-                                    Colors.black.withOpacity(0.6),
+                                    Colors.black.withOpacity(0.4),
+                                    Colors.black.withOpacity(0.85),
                                   ],
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
