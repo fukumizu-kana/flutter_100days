@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
@@ -118,7 +117,6 @@ class GalleryScreen extends StatelessWidget {
             itemCount: items.length,
             itemBuilder: (context, index) {
               final item = items[index];
-              final randomHeight = 200.0 + Random().nextInt(60);
               return Bounceable(
                 onTap: () {
                   if (item['screen'] != null) {
@@ -133,54 +131,56 @@ class GalleryScreen extends StatelessWidget {
                     );
                   }
                 },
-                child: ClayContainer(
-                  height: randomHeight,
-                  borderRadius: 20,
-                  color: const Color(0xFFF0F0F3),
-                  depth: 40,
-                  spread: 6,
-                  curveType: CurveType.convex,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Stack(
-                      children: [
-                        Hero(
-                          tag: 'item-image-$index',
-                          child: Image.asset(
-                            item['image'] as String,
-                            width: double.infinity,
-                            height: double.infinity,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          left: 0,
-                          right: 0,
-                          child: Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Colors.black.withOpacity(0.05),
-                                  Colors.black.withOpacity(0.6),
-                                ],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                              ),
-                            ),
-                            child: Text(
-                              item['title'] as String,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                fontFamily: 'ZenMaruGothic',
-                                color: Colors.white,
-                              ),
+                child: AspectRatio(
+                  aspectRatio: 4 / 5,
+                  child: ClayContainer(
+                    borderRadius: 20,
+                    color: const Color(0xFFF0F0F3),
+                    depth: 40,
+                    spread: 6,
+                    curveType: CurveType.convex,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Stack(
+                        children: [
+                          Hero(
+                            tag: 'item-image-$index',
+                            child: Image.asset(
+                              item['image'] as String,
+                              width: double.infinity,
+                              height: double.infinity,
+                              fit: BoxFit.cover,
                             ),
                           ),
-                        ),
-                      ],
+                          Positioned(
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            child: Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Colors.black.withOpacity(0.05),
+                                    Colors.black.withOpacity(0.6),
+                                  ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                ),
+                              ),
+                              child: Text(
+                                item['title'] as String,
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w600,
+                                  fontFamily: 'ZenMaruGothic',
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ).animate().fadeIn(
