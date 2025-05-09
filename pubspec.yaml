@@ -49,6 +49,7 @@ dependencies:
   fl_chart: ^0.66.1
   clay_containers: ^0.3.4
   flutter_bounceable: ^1.2.0
+  modal_bottom_sheet: ^3.0.0
 
 dev_dependencies:
   flutter_test:
