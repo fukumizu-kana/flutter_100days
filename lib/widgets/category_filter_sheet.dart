@@ -9,11 +9,21 @@ class CategoryFilterSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: const Color(0xFFFFF0F7),
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
       child: SafeArea(
         top: false,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            const SizedBox(height: 12),
+            Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.grey.shade400,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
             const SizedBox(height: 16),
             const Text(
               'カテゴリで絞り込み',
