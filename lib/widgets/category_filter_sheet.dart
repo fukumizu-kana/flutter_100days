@@ -38,8 +38,8 @@ class _CategoryFilterSheetState extends State<CategoryFilterSheet> {
                 height: 4,
                 margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade400,
-                  borderRadius: BorderRadius.circular(2),
+                  color: const Color(0xFF8B3A62).withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(4),
                 ),
               ),
               const Text(
