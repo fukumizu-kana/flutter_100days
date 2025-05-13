@@ -15,6 +15,7 @@ import '/pages/day07.dart';
 import '/pages/day08.dart';
 import '/pages/day09.dart';
 import '/pages/day11.dart';
+import '/pages/day16.dart';
 import '/widgets/category_filter_sheet.dart';
 import '/providers/theme_mode_provider.dart';
 
@@ -67,6 +68,12 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
       'title': 'fl_chart',
       'image': 'images/day11_app.png',
       'screen': const Day11(),
+      'category': 'UI',
+    },
+    {
+      'title': 'awesome_snackbar_content',
+      'image': 'images/day16_app.png',
+      'screen': const Day16(),
       'category': 'UI',
     },
   ];
