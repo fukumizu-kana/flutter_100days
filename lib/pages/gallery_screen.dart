@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -15,15 +16,16 @@ import '/pages/day08.dart';
 import '/pages/day09.dart';
 import '/pages/day11.dart';
 import '/widgets/category_filter_sheet.dart';
+import '/providers/theme_mode_provider.dart';
 
-class GalleryScreen extends StatefulWidget {
+class GalleryScreen extends ConsumerStatefulWidget {
   const GalleryScreen({super.key});
 
   @override
-  State<GalleryScreen> createState() => _GalleryScreenState();
+  ConsumerState<GalleryScreen> createState() => _GalleryScreenState();
 }
 
-class _GalleryScreenState extends State<GalleryScreen> {
+class _GalleryScreenState extends ConsumerState<GalleryScreen> {
   final List<Map<String, dynamic>> allItems = [
     {
       'title': 'flutter_animate\nanimated_text_kit',
@@ -91,37 +93,51 @@ class _GalleryScreenState extends State<GalleryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return DraggableHome(
-      title: const Text(
+      title: Text(
         'Flutter パッケージ 100days',
         style: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.bold,
           fontFamily: 'ZenMaruGothic',
-          color: Color(0xFF8B3A62),
+          color: colorScheme.onSurface,
         ),
       ),
       leading: IconButton(
-        icon: const Icon(Icons.filter_alt, color: Color(0xFF8B3A62)),
+        icon: Icon(Icons.filter_alt, color: colorScheme.primary),
         onPressed: _showFilterSheet,
       ),
-      appBarColor: const Color(0xFFFFF0F7),
-      backgroundColor: const Color(0xFFFFF0F7),
+      actions: [
+        IconButton(
+          icon: Icon(
+            isDark ? Icons.lightbulb : Icons.lightbulb_outline,
+            color: colorScheme.primary,
+          ),
+          onPressed: () {
+            ref.read(themeModeProvider.notifier).toggleMode();
+          },
+        ),
+      ],
+      appBarColor: Theme.of(context).appBarTheme.backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       headerWidget: Container(
         height: 140,
         width: double.infinity,
         padding: const EdgeInsets.only(top: 16),
         alignment: Alignment.center,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Color(0xFFFFF0F7),
-              Color(0xFFFEE3F0),
+              colorScheme.surface,
+              colorScheme.background,
             ],
           ),
-          borderRadius: BorderRadius.vertical(
+          borderRadius: const BorderRadius.vertical(
             bottom: Radius.circular(32),
           ),
         ),
@@ -131,11 +147,11 @@ class _GalleryScreenState extends State<GalleryScreen> {
           animatedTexts: [
             TyperAnimatedText(
               'Flutter パッケージ 100days',
-              textStyle: const TextStyle(
+              textStyle: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
                 fontFamily: 'ZenMaruGothic',
-                color: Color(0xFF8B3A62),
+                color: isDark ? Colors.white : colorScheme.onSurface,
               ),
               speed: const Duration(milliseconds: 60),
             ),
@@ -172,10 +188,12 @@ class _GalleryScreenState extends State<GalleryScreen> {
                   aspectRatio: 2 / 3,
                   child: ClayContainer(
                     borderRadius: 20,
-                    color: const Color(0xFFF0F0F3),
-                    depth: 40,
-                    spread: 6,
-                    curveType: CurveType.convex,
+                    color: isDark
+                        ? const Color(0xFF3A3A3C)
+                        : colorScheme.surface,
+                    depth: isDark ? 20 : 40,
+                    spread: isDark ? 4 : 6,
+                    curveType: isDark ? CurveType.concave : CurveType.convex,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: Stack(

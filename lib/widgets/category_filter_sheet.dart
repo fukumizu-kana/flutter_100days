@@ -23,8 +23,10 @@ class _CategoryFilterSheetState extends State<CategoryFilterSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Material(
-      color: const Color(0xFFFFF0F7),
+      color: colorScheme.surface,
       borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
       child: SafeArea(
         top: false,
@@ -38,16 +40,16 @@ class _CategoryFilterSheetState extends State<CategoryFilterSheet> {
                 height: 4,
                 margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF8B3A62).withOpacity(0.2),
+                  color: colorScheme.onSurface.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(4),
                 ),
               ),
-              const Text(
+              Text(
                 'カテゴリで絞り込み',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF8B3A62),
+                  color: colorScheme.onSurface,
                 ),
               ),
               const SizedBox(height: 16),
@@ -68,14 +70,14 @@ class _CategoryFilterSheetState extends State<CategoryFilterSheet> {
                         duration: const Duration(milliseconds: 200),
                         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                         decoration: BoxDecoration(
-                          color: isSelected ? const Color(0xFF8B3A62) : Colors.transparent,
-                          border: Border.all(color: const Color(0xFF8B3A62)),
+                          color: isSelected ? colorScheme.primary : Colors.transparent,
+                          border: Border.all(color: colorScheme.primary),
                           borderRadius: BorderRadius.circular(24),
                         ),
                         child: Text(
                           categories[index],
                           style: TextStyle(
-                            color: isSelected ? Colors.white : const Color(0xFF8B3A62),
+                            color: isSelected ? Colors.white : colorScheme.primary,
                             fontWeight: FontWeight.w600,
                             fontSize: 16,
                           ),
@@ -88,11 +90,11 @@ class _CategoryFilterSheetState extends State<CategoryFilterSheet> {
               const SizedBox(height: 20),
               TextButton(
                 onPressed: () => Navigator.of(context).pop(null),
-                child: const Text(
+                child: Text(
                   'すべて表示',
                   style: TextStyle(
                     fontSize: 14,
-                    color: Color(0xFF8B3A62),
+                    color: colorScheme.primary,
                     decoration: TextDecoration.underline,
                   ),
                 ),
