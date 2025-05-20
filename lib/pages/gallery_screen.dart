@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
@@ -28,62 +29,74 @@ class GalleryScreen extends ConsumerStatefulWidget {
 }
 
 class _GalleryScreenState extends ConsumerState<GalleryScreen> {
-  final List<Map<String, dynamic>> allItems = [
-    {
-      'title': 'flutter_animate\nanimated_text_kit',
-      'image': 'images/omikuji_app.png',
-      'screen': const Day01(),
-      'category': 'UI',
-    },
-    {
-      'title': 'concentric_transition',
-      'image': 'images/day05_app.png',
-      'screen': const Day05(),
-      'category': 'UX',
-    },
-    {
-      'title': 'animated_flip_counter',
-      'image': 'images/day06_app.png',
-      'screen': const Day06(),
-      'category': 'UI',
-    },
-    {
-      'title': 'smooth_page_indicator',
-      'image': 'images/day07_app.png',
-      'screen': const Day07(),
-      'category': 'UI',
-    },
-    {
-      'title': 'flutter_spinkit',
-      'image': 'images/day08_app.png',
-      'screen': const Day08(),
-      'category': 'UI',
-    },
-    {
-      'title': 'flutter_chat_ui\nflutter_chat_types',
-      'image': 'images/day09_app.png',
-      'screen': const Day09(),
-      'category': 'UX',
-    },
-    {
-      'title': 'fl_chart',
-      'image': 'images/day11_app.png',
-      'screen': const Day11(),
-      'category': 'UI',
-    },
-    {
-      'title': 'awesome_snackbar_content',
-      'image': 'images/day16_app.png',
-      'screen': const Day16(),
-      'category': 'UI',
-    },
-    {
-      'title': 'syncfusion_flutter_charts',
-      'image': 'images/day17_app.png',
-      'screen': const Day17(),
-      'category': 'UI',
-    },
-  ];
+  final List<Map<String, dynamic>> allItems = [];
+  bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 1), () {
+      setState(() {
+        isLoading = false;
+        allItems.addAll([
+          {
+            'title': 'flutter_animate\nanimated_text_kit',
+            'image': 'images/omikuji_app.png',
+            'screen': const Day01(),
+            'category': 'UI',
+          },
+          {
+            'title': 'concentric_transition',
+            'image': 'images/day05_app.png',
+            'screen': const Day05(),
+            'category': 'UX',
+          },
+          {
+            'title': 'animated_flip_counter',
+            'image': 'images/day06_app.png',
+            'screen': const Day06(),
+            'category': 'UI',
+          },
+          {
+            'title': 'smooth_page_indicator',
+            'image': 'images/day07_app.png',
+            'screen': const Day07(),
+            'category': 'UI',
+          },
+          {
+            'title': 'flutter_spinkit',
+            'image': 'images/day08_app.png',
+            'screen': const Day08(),
+            'category': 'UI',
+          },
+          {
+            'title': 'flutter_chat_ui\nflutter_chat_types',
+            'image': 'images/day09_app.png',
+            'screen': const Day09(),
+            'category': 'UX',
+          },
+          {
+            'title': 'fl_chart',
+            'image': 'images/day11_app.png',
+            'screen': const Day11(),
+            'category': 'UI',
+          },
+          {
+            'title': 'awesome_snackbar_content',
+            'image': 'images/day16_app.png',
+            'screen': const Day16(),
+            'category': 'UI',
+          },
+          {
+            'title': 'syncfusion_flutter_charts',
+            'image': 'images/day17_app.png',
+            'screen': const Day17(),
+            'category': 'UI',
+          },
+        ]);
+      });
+    });
+  }
 
   String? selectedCategory;
 
@@ -175,94 +188,116 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
       body: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: MasonryGridView.count(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: 2,
-            mainAxisSpacing: 16,
-            crossAxisSpacing: 16,
-            itemCount: filteredItems.length,
-            itemBuilder: (context, index) {
-              final item = filteredItems[index];
-              return Bounceable(
-                onTap: () {
-                  if (item['screen'] != null) {
-                    Navigator.push(
-                      context,
-                      PageTransition(
-                        type: PageTransitionType.scale,
-                        alignment: Alignment.center,
-                        duration: const Duration(milliseconds: 400),
-                        child: item['screen'] as Widget,
+          child: isLoading
+              ? MasonryGridView.count(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 16,
+                  itemCount: 6,
+                  itemBuilder: (context, index) {
+                    return Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: AspectRatio(
+                        aspectRatio: 2 / 3,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
                       ),
                     );
-                  }
-                },
-                child: AspectRatio(
-                  aspectRatio: 2 / 3,
-                  child: ClayContainer(
-                    borderRadius: 20,
-                    color: isDark
-                        ? const Color(0xFF3A3A3C)
-                        : colorScheme.surface,
-                    depth: isDark ? 20 : 40,
-                    spread: isDark ? 4 : 6,
-                    curveType: isDark ? CurveType.concave : CurveType.convex,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Stack(
-                        children: [
-                          Hero(
-                            tag: 'item-image-$index',
-                            child: Image.asset(
-                              item['image'] as String,
-                              width: double.infinity,
-                              height: double.infinity,
-                              fit: BoxFit.cover,
+                  },
+                )
+              : MasonryGridView.count(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 16,
+                  itemCount: filteredItems.length,
+                  itemBuilder: (context, index) {
+                    final item = filteredItems[index];
+                    return Bounceable(
+                      onTap: () {
+                        if (item['screen'] != null) {
+                          Navigator.push(
+                            context,
+                            PageTransition(
+                              type: PageTransitionType.scale,
+                              alignment: Alignment.center,
+                              duration: const Duration(milliseconds: 400),
+                              child: item['screen'] as Widget,
+                            ),
+                          );
+                        }
+                      },
+                      child: AspectRatio(
+                        aspectRatio: 2 / 3,
+                        child: ClayContainer(
+                          borderRadius: 20,
+                          color: isDark ? const Color(0xFF3A3A3C) : colorScheme.surface,
+                          depth: isDark ? 20 : 40,
+                          spread: isDark ? 4 : 6,
+                          curveType: isDark ? CurveType.concave : CurveType.convex,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Stack(
+                              children: [
+                                Hero(
+                                  tag: 'item-image-$index',
+                                  child: Image.asset(
+                                    item['image'] as String,
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Positioned(
+                                  bottom: 0,
+                                  left: 0,
+                                  right: 0,
+                                  child: Container(
+                                    padding: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Colors.black.withOpacity(0.4),
+                                          Colors.black.withOpacity(0.85),
+                                        ],
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                      ),
+                                    ),
+                                    child: Text(
+                                      item['title'] as String,
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: 'ZenMaruGothic',
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          Positioned(
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                            child: Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: [
-                                    Colors.black.withOpacity(0.4),
-                                    Colors.black.withOpacity(0.85),
-                                  ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                ),
-                              ),
-                              child: Text(
-                                item['title'] as String,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: 'ZenMaruGothic',
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
-                ).animate().fadeIn(
-                  duration: 600.ms,
-                  delay: (index * 100).ms,
-                ).moveY(
-                  begin: 30,
-                  end: 0,
-                  curve: Curves.easeOut,
+                    ).animate().fadeIn(
+                      duration: 600.ms,
+                      delay: (index * 100).ms,
+                    ).moveY(
+                      begin: 30,
+                      end: 0,
+                      curve: Curves.easeOut,
+                    );
+                  },
                 ),
-              );
-            },
-          ),
         ),
       ],
     );
