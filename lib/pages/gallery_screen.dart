@@ -18,6 +18,7 @@ import '/pages/day09.dart';
 import '/pages/day11.dart';
 import '/pages/day16.dart';
 import '/pages/day17.dart';
+import '/pages/day19.dart';
 import '/widgets/category_filter_sheet.dart';
 import '/providers/theme_mode_provider.dart';
 
@@ -91,6 +92,12 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
             'title': 'syncfusion_flutter_charts',
             'image': 'images/day17_app.png',
             'screen': const Day17(),
+            'category': 'UI',
+          },
+          {
+            'title': 'flutter_confetti',
+            'image': 'images/day19_app.png',
+            'screen': const Day19(),
             'category': 'UI',
           },
         ]);
