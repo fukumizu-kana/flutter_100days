@@ -19,6 +19,7 @@ import '/pages/day11.dart';
 import '/pages/day16.dart';
 import '/pages/day17.dart';
 import '/pages/day19.dart';
+import '/pages/day20.dart';
 import '/widgets/category_filter_sheet.dart';
 import '/providers/theme_mode_provider.dart';
 
@@ -98,6 +99,12 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
             'title': 'flutter_confetti',
             'image': 'images/day19_app.png',
             'screen': const Day19(),
+            'category': 'UI',
+          },
+          {
+            'title': 'circular_countdown_timer',
+            'image': 'images/day20_app.png',
+            'screen': const Day20(),
             'category': 'UI',
           },
         ]);
