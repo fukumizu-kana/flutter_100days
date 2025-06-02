@@ -59,6 +59,7 @@ dependencies:
   flutter_confetti : ^0.5.1
   circular_countdown_timer: ^0.2.4
   liquid_pull_to_refresh: ^3.0.1
+  auto_animated: ^3.2.0
 
 dev_dependencies:
   flutter_test:
