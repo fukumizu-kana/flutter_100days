@@ -21,6 +21,7 @@ import '/pages/day17.dart';
 import '/pages/day19.dart';
 import '/pages/day20.dart';
 import '/pages/day21.dart';
+import '/pages/day22.dart';
 import '/widgets/category_filter_sheet.dart';
 import '/providers/theme_mode_provider.dart';
 
@@ -109,9 +110,15 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
             'category': 'UI',
           },
           {
-            'title': 'circular_countdown_timer',
+            'title': 'liquid_pull_to_refresh',
             'image': 'images/day21_app.png',
             'screen': const Day21(),
+            'category': 'UI',
+          },
+          {
+            'title': 'auto_animated',
+            'image': 'images/day22_app.png',
+            'screen': const Day22(),
             'category': 'UI',
           },
         ]);
