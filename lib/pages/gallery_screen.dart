@@ -22,6 +22,7 @@ import '/pages/day19.dart';
 import '/pages/day20.dart';
 import '/pages/day21.dart';
 import '/pages/day22.dart';
+import '/pages/day23.dart';
 import '/widgets/category_filter_sheet.dart';
 import '/providers/theme_mode_provider.dart';
 
@@ -65,7 +66,7 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
             'title': 'smooth_page_indicator',
             'image': 'images/day07_app.png',
             'screen': const Day07(),
-            'category': 'UI',
+            'category': 'UX',
           },
           {
             'title': 'flutter_spinkit',
@@ -89,7 +90,7 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
             'title': 'awesome_snackbar_content',
             'image': 'images/day16_app.png',
             'screen': const Day16(),
-            'category': 'UI',
+            'category': 'UX',
           },
           {
             'title': 'syncfusion_flutter_charts',
@@ -101,24 +102,30 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
             'title': 'flutter_confetti',
             'image': 'images/day19_app.png',
             'screen': const Day19(),
-            'category': 'UI',
+            'category': 'UX',
           },
           {
             'title': 'circular_countdown_timer',
             'image': 'images/day20_app.png',
             'screen': const Day20(),
-            'category': 'UI',
+            'category': 'UX',
           },
           {
             'title': 'liquid_pull_to_refresh',
             'image': 'images/day21_app.png',
             'screen': const Day21(),
-            'category': 'UI',
+            'category': 'UX',
           },
           {
             'title': 'auto_animated',
             'image': 'images/day22_app.png',
             'screen': const Day22(),
+            'category': 'UI',
+          },
+          {
+            'title': 'animated_background',
+            'image': 'images/day23_app.png',
+            'screen': const Day23(),
             'category': 'UI',
           },
         ]);
