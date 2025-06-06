@@ -23,6 +23,7 @@ import '/pages/day20.dart';
 import '/pages/day21.dart';
 import '/pages/day22.dart';
 import '/pages/day23.dart';
+import '/pages/day24.dart';
 import '/widgets/category_filter_sheet.dart';
 import '/providers/theme_mode_provider.dart';
 
@@ -126,6 +127,12 @@ class _GalleryScreenState extends ConsumerState<GalleryScreen> {
             'title': 'animated_background',
             'image': 'images/day23_app.png',
             'screen': const Day23(),
+            'category': 'UI',
+          },
+          {
+            'title': 'timeline_tile',
+            'image': 'images/day24_app.png',
+            'screen': const Day24(),
             'category': 'UI',
           },
         ]);
